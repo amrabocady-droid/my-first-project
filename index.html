@@ -1,1 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Simple Data App</title>
+</head>
+<body>
 
+<h2>Enter Customer Data</h2>
+
+<input id="name" placeholder="Name"><br><br>
+<input id="age" type="number" placeholder="Age"><br><br>
+<input id="amount" type="number" placeholder="Amount"><br><br>
+<input id="date" type="date"><br><br>
+
+<button onclick="saveData()">Save</button>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+  import { getDatabase, ref, push } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyJDiRPntNIPJkgZeYHLLdQSaBZfQQu36y",
+    authDomain: "my-first-project-db-c0b09.firebaseapp.com",
+    databaseURL: "https://my-first-project-db-c0b09-default-rtdb.firebaseio.com",
+    projectId: "my-first-project-db-c0b09",
+    storageBucket: "my-first-project-db-c0b09.firebasestorage.app",
+    messagingSenderId: "749720941826",
+    appId: "1:749720941826:web:3239e22a9c5b2fe0e5be1b"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getDatabase(app);
+
+  window.saveData = function () {
+    push(ref(db, "customers"), {
+      name: document.getElementById("name").value,
+      age: document.getElementById("age").value,
+      amount: document.getElementById("amount").value,
+      date: document.getElementById("date").value
+    });
+
+    alert("Data saved successfully");
+  };
+</script>
+
+</body>
+</html>
